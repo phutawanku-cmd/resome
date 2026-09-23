@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Interoperability - เชื่อมต่อทุกระบบให้เป็นหนึ่งเดียว</title>
+    <!-- โหลด Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- โหลด Font Awesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- โหลด Google Fonts (Inter & Kanit) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ตั้งค่าฟอนต์หลักเป็น Kanit สำหรับภาษาไทย */
+        body {
+            font-family: 'Kanit', 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #f8fafc; /* Slate 50 */
+        }
+
+        /* อนิเมชั่นสำหรับกราฟิกการเชื่อมต่อ */
+        .float-anim {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .pulse-slow {
+            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* เอฟเฟกต์ Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* เอฟเฟกต์การ์ดตอน Hover */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #818cf8;
+            box-shadow: 0 10px 30px -10px rgba(129, 140, 248, 0.3);
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-indigo-500 selection:text-white">
+
+    <nav class="fixed w-full z-50 transition-all duration-300 backdrop-blur-md bg-slate-900/80 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3 cursor-pointer">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                        <i class="fa-solid fa-network-wired text-white text-xl"></i>
+                    </div>
+                    <span class="font-bold text-2xl tracking-wide text-white">Inter<span class="text-indigo-400">Op</span></span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">ความหมาย</a>
+                        <a href="#benefits" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">ประโยชน์</a>
+                        <a href="#technology" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">เทคโนโลยีหลัก</a>
+                        <button class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all shadow-lg shadow-indigo-500/30">ติดต่อผู้เชี่ยวชาญ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- พื้นหลังตกแต่ง -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-600/20 rounded-full blur-[120px] -z-10"></div>
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-600/20 rounded-full blur-[100px] -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
+                <!-- ข้อความ Hero -->
+                <div class="lg:col-span-6 text-center lg:text-left mb-16 lg:mb-0">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800 border border-slate-700 text-cyan-400 text-sm font-medium mb-6">
+                        <span class="relative flex h-3 w-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
+                        </span>
+                        The Future of Systems Integration
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        ทลายกำแพงระบบ<br>ด้วย <span class="text-gradient">Software Interoperability</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-400 mb-8 max-w-2xl mx-auto lg:mx-0">
+                        สร้างสถาปัตยกรรมซอฟต์แวร์ที่เชื่อมต่อ สื่อสาร และแลกเปลี่ยนข้อมูลกันได้อย่างไร้รอยต่อ ไม่ว่าจะเป็นระบบเก่าหรือใหม่ เพื่อปลดล็อกศักยภาพสูงสุดของธุรกิจคุณ
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#about" class="bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-400 hover:to-cyan-400 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2">
+                            ทำความรู้จักเพิ่มเติม <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#technology" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 px-8 py-4 rounded-full font-semibold text-lg transition-all flex items-center justify-center">
+                            ดูเทคโนโลยีที่รองรับ
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 relative">
+                    <div class="relative w-full aspect-square max-w-lg mx-auto float-anim">
+                        <!-- โครงสร้างเครือข่ายจำลองแบบ CSS -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <!-- วงกลมกลาง (Core System) -->
+                            <div class="w-32 h-32 rounded-3xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-2xl z-20 relative">
+                                <i class="fa-solid fa-server text-4xl text-white"></i>
+                                <!-- วงแหวนกระจายคลื่น -->
+                                <div class="absolute inset-0 rounded-3xl border-2 border-indigo-500 pulse-slow scale-150 opacity-50"></div>
+                            </div>
+
+                            <!-- เส้นเชื่อมต่อและ Node ย่อย -->
+                            <div class="absolute top-10 left-10 w-20 h-20 rounded-2xl glass-card flex items-center justify-center z-10">
+                                <i class="fa-solid fa-database text-2xl text-cyan-400"></i>
+                                <svg class="absolute top-full left-full w-24 h-24 -ml-4 -mt-4 text-slate-700 -z-10" viewBox="0 0 100 100"><path d="M0,0 L100,100" stroke="currentColor" stroke-width="2" stroke-dasharray="5,5"/></svg>
+                            </div>
+                            
+                            <div class="absolute bottom-10 right-10 w-20 h-20 rounded-2xl glass-card flex items-center justify-center z-10">
+                                <i class="fa-brands fa-aws text-3xl text-orange-400"></i>
+                                <svg class="absolute bottom-full right-full w-24 h-24 -mr-4 -mb-4 text-slate-700 -z-10" viewBox="0 0 100 100"><path d="M100,100 L0,0" stroke="currentColor" stroke-width="2" stroke-dasharray="5,5"/></svg>
+                            </div>
+
+                            <div class="absolute top-20 right-5 w-16 h-16 rounded-2xl glass-card flex items-center justify-center z-10">
+                                <i class="fa-solid fa-mobile-screen text-xl text-emerald-400"></i>
+                                <svg class="absolute top-full right-full w-24 h-16 -mr-2 -mt-2 text-slate-700 -z-10" viewBox="0 0 100 50"><path d="M100,0 L0,50" stroke="currentColor" stroke-width="2" stroke-dasharray="5,5"/></svg>
+                            </div>
+
+                            <div class="absolute bottom-20 left-5 w-16 h-16 rounded-2xl glass-card flex items-center justify-center z-10">
+                                <i class="fa-solid fa-cloud text-xl text-blue-400"></i>
+                                <svg class="absolute bottom-full left-full w-24 h-16 -ml-2 -mb-2 text-slate-700 -z-10" viewBox="0 0 100 50"><path d="M0,100 L100,0" stroke="currentColor" stroke-width="2" stroke-dasharray="5,5"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 bg-slate-900 border-y border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Software Interoperability คืออะไร?</h2>
+                <div class="w-20 h-1 bg-indigo-500 mx-auto rounded-full mb-8"></div>
+                <p class="text-lg text-slate-400 leading-relaxed">
+                    คือ **ความสามารถของระบบคอมพิวเตอร์ หรือซอฟต์แวร์ที่แตกต่างกัน** (อาจต่างภาษาโปรแกรม ต่างแพลตฟอร์ม หรือต่างผู้ผลิต) ในการเชื่อมต่อ สื่อสาร และแลกเปลี่ยนข้อมูลระหว่างกันได้อย่างเข้าใจและทำงานร่วมกันได้อย่างสมบูรณ์ โดยไม่ต้องอาศัยคนเข้ามาจัดการข้อมูลตรงกลาง
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- ระดับการทำงานร่วมกัน -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="w-14 h-14 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-plug text-2xl text-blue-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">1. การเชื่อมต่อพื้นฐาน (Foundational)</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        ระบบสามารถส่งข้อมูลผ่านเครือข่ายถึงกันได้ เช่น การส่งไฟล์หากันผ่านโปรโตคอล TCP/IP หรือ HTTP พื้นฐาน
+                    </p>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-code text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">2. ระดับโครงสร้าง (Structural)</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        ระบบสามารถอ่านโครงสร้างข้อมูลของกันและกันได้ เช่น การตกลงใช้ฟอร์แมต JSON หรือ XML ในการรับส่งข้อมูล
+                    </p>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="w-14 h-14 bg-emerald-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-brain text-2xl text-emerald-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">3. ระดับความหมาย (Semantic)</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        ขั้นสูงสุดที่ระบบไม่เพียงแค่อ่านออก แต่ "เข้าใจความหมาย" ของข้อมูลนั้นตรงกัน และนำไปประมวลผลต่อได้อัตโนมัติ
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="benefits" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div class="max-w-2xl">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">ทำไมองค์กรถึงต้องการ <br><span class="text-indigo-400">Interoperability?</span></h2>
+                    <p class="text-slate-400">การที่ซอฟต์แวร์คุยกันไม่รู้เรื่อง ก่อให้เกิด Data Silo และคอขวดในการทำงาน นี่คือประโยชน์เมื่อทุกระบบเชื่อมถึงกัน</p>
+                </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Benefit 1 -->
+                <div class="bg-slate-800/50 border border-slate-700 hover:border-cyan-500/50 p-6 rounded-2xl transition-all group">
+                    <div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                        <i class="fa-solid fa-bolt text-cyan-400"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 text-white">เพิ่มประสิทธิภาพ (Efficiency)</h4>
+                    <p class="text-sm text-slate-400">กระบวนการอัตโนมัติทำงานข้ามระบบได้ทันที ลดเวลาการคีย์ข้อมูลซ้ำซ้อนระหว่างโปรแกรม</p>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="bg-slate-800/50 border border-slate-700 hover:border-indigo-500/50 p-6 rounded-2xl transition-all group">
+                    <div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                        <i class="fa-solid fa-chart-pie text-indigo-400"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 text-white">ทำลาย Data Silos</h4>
+                    <p class="text-sm text-slate-400">ข้อมูลไม่ถูกขังอยู่ในระบบใดระบบหนึ่ง ผู้บริหารเห็นภาพรวมของข้อมูล (Single Source of Truth) ได้แม่นยำขึ้น</p>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="bg-slate-800/50 border border-slate-700 hover:border-purple-500/50 p-6 rounded-2xl transition-all group">
+                    <div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                        <i class="fa-solid fa-users text-purple-400"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 text-white">ยกระดับ User Experience</h4>
+                    <p class="text-sm text-slate-400">ผู้ใช้งานไม่ต้องสลับหน้าจอไปมาหลายโปรแกรม ระบบเบื้องหลังจัดการซิงค์ข้อมูลให้แบบ Real-time</p>
+                </div>
+
+                <!-- Benefit 4 -->
+                <div class="bg-slate-800/50 border border-slate-700 hover:border-emerald-500/50 p-6 rounded-2xl transition-all group">
+                    <div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                        <i class="fa-solid fa-coins text-emerald-400"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 text-white">ประหยัดต้นทุน</h4>
+                    <p class="text-sm text-slate-400">ลดความผิดพลาดจาก Human Error และประหยัดต้นทุนในการบำรุงรักษาระบบที่ทำงานทับซ้อนกัน</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="technology" class="py-20 bg-slate-900 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">เทคโนโลยีเบื้องหลังการเชื่อมต่อ</h2>
+                <p class="text-slate-400">เครื่องมือและมาตรฐานที่ทำให้ Software Interoperability เกิดขึ้นจริง</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                <div class="space-y-6">
+                    <!-- Tech Item -->
+                    <div class="flex gap-4 p-5 rounded-xl bg-slate-800/50 border border-slate-700 hover:bg-slate-800 transition-colors">
+                        <div class="flex-shrink-0 w-12 h-12 bg-indigo-500/20 text-indigo-400 rounded-lg flex items-center justify-center text-xl font-bold">
+                            API
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white mb-1">Application Programming Interface (REST, GraphQL)</h4>
+                            <p class="text-sm text-slate-400">ช่องทางหลักที่อนุญาตให้ซอฟต์แวร์ต่างชนิดกันร้องขอและส่งมอบข้อมูลให้กันอย่างปลอดภัย</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Tech Item -->
+                    <div class="flex gap-4 p-5 rounded-xl bg-slate-800/50 border border-slate-700 hover:bg-slate-800 transition-colors">
+                        <div class="flex-shrink-0 w-12 h-12 bg-cyan-500/20 text-cyan-400 rounded-lg flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white mb-1">มาตรฐานข้อมูล (JSON, XML)</h4>
+                            <p class="text-sm text-slate-400">ภาษากลางที่จัดรูปแบบข้อมูลให้เป็นระเบียบ ทำให้ทุกระบบที่รับไปสามารถแปลผลได้ตรงกัน</p>
+                        </div>
+                    </div>
+
+                    <!-- Tech Item -->
+                    <div class="flex gap-4 p-5 rounded-xl bg-slate-800/50 border border-slate-700 hover:bg-slate-800 transition-colors">
+                        <div class="flex-shrink-0 w-12 h-12 bg-purple-500/20 text-purple-400 rounded-lg flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-satellite-dish"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white mb-1">Webhooks & Event-driven</h4>
+                            <p class="text-sm text-slate-400">กลไกที่แจ้งเตือนระบบอื่นทันทีเมื่อมีเหตุการณ์บางอย่างเกิดขึ้น (Real-time updates) โดยไม่ต้องคอยถามข้อมูล</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Code Graphic -->
+                <div class="relative rounded-2xl overflow-hidden bg-[#1e1e1e] border border-slate-700 shadow-2xl p-4">
+                    <div class="flex gap-2 mb-4">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <pre class="text-sm font-mono text-gray-300 overflow-x-auto">
+<span class="text-purple-400">POST</span> <span class="text-green-400">/api/v1/sync/customer</span> HTTP/1.1
+Host: api.integrated-system.com
+Content-Type: application/json
+
+{
+  <span class="text-cyan-300">"source_system"</span>: <span class="text-orange-300">"CRM_Salesforce"</span>,
+  <span class="text-cyan-300">"target_system"</span>: <span class="text-orange-300">"ERP_SAP"</span>,
+  <span class="text-cyan-300">"action"</span>: <span class="text-orange-300">"CREATE"</span>,
+  <span class="text-cyan-300">"data"</span>: {
+    <span class="text-cyan-300">"id"</span>: <span class="text-orange-300">"CUST-8849"</span>,
+    <span class="text-cyan-300">"name"</span>: <span class="text-orange-300">"TechCorp Thailand"</span>,
+    <span class="text-cyan-300">"status"</span>: <span class="text-orange-300">"Active"</span>
+  }
+}
+
+<span class="text-slate-500">// Response 200 OK</span>
+{
+  <span class="text-cyan-300">"status"</span>: <span class="text-orange-300">"success"</span>,
+  <span class="text-cyan-300">"message"</span>: <span class="text-orange-300">"Data synchronized across systems"</span>
+}
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-950 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex justify-center items-center gap-3 mb-6">
+                <i class="fa-solid fa-network-wired text-indigo-500 text-2xl"></i>
+                <span class="font-bold text-2xl tracking-wide text-white">Inter<span class="text-indigo-400">Op</span></span>
+            </div>
+            <p class="text-slate-500 mb-6 max-w-md mx-auto">
+                เชื่อมต่อระบบ สร้างระบบนิเวศน์ซอฟต์แวร์ที่แข็งแกร่ง เพื่อการเติบโตอย่างยั่งยืนของธุรกิจคุณ
+            </p>
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
+                <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fa-brands fa-twitter text-xl"></i></a>
+            </div>
+            <div class="text-sm text-slate-600">
+                &copy; 2024 InterOp Integration Architecture. All rights reserved. Designed for Concept Demonstration.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script สำหรับ Smooth Scrolling -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
