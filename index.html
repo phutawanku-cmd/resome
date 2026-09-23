@@ -3,353 +3,559 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Software Interoperability - เชื่อมต่อทุกระบบให้เป็นหนึ่งเดียว</title>
-    <!-- โหลด Tailwind CSS -->
+    <title>The Dark Nexus - Software Interoperability</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- โหลด Font Awesome สำหรับไอคอน -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- โหลด Google Fonts (Inter & Kanit) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Kanit:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ตั้งค่าฟอนต์หลักเป็น Kanit สำหรับภาษาไทย */
-        body {
-            font-family: 'Kanit', 'Inter', sans-serif;
-            background-color: #0f172a; /* Slate 900 */
-            color: #f8fafc; /* Slate 50 */
+        :root {
+            --blood-red: #8a0303;
+            --dark-void: #050505;
+            --sickly-green: #2b4c2b;
         }
 
-        /* อนิเมชั่นสำหรับกราฟิกการเชื่อมต่อ */
-        .float-anim {
-            animation: float 6s ease-in-out infinite;
+        body {
+            background-color: var(--dark-void);
+            color: #d1d5db;
+            font-family: 'Kanit', 'Space Mono', monospace;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            cursor: crosshair;
+        }
+
+        /* Horror Fonts */
+        .font-horror {
+            font-family: 'Creepster', cursive;
+            letter-spacing: 2px;
         }
         
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
+        .font-tech {
+            font-family: 'Space Mono', monospace;
         }
 
-        .pulse-slow {
-            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            color: white;
+            text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                        -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+                        0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            animation: glitch 500ms infinite;
+        }
+        
+        .glitch span {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .glitch span:first-child {
+            animation: glitch 650ms infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+            transform: translate(-0.025em, -0.0125em);
+            opacity: 0.8;
+        }
+        
+        .glitch span:last-child {
+            animation: glitch 375ms infinite;
+            clip-path: polygon(0 80%, 100% 20%, 100% 100%, 0 100%);
+            transform: translate(0.0125em, 0.025em);
+            opacity: 0.8;
         }
 
-        /* เอฟเฟกต์ Gradient Text */
-        .text-gradient {
-            background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
+            14% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
+            15% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75); }
+            49% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75); }
+            50% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75); }
+            99% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75); }
+            100% { text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0 rgba(0, 0, 255, 0.75); }
         }
 
-        /* เอฟเฟกต์การ์ดตอน Hover */
-        .glass-card {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+        /* Flicker Effect */
+        .flicker {
+            animation: flicker 4s infinite;
         }
-        .glass-card:hover {
-            transform: translateY(-5px);
-            border-color: #818cf8;
-            box-shadow: 0 10px 30px -10px rgba(129, 140, 248, 0.3);
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+            20%, 24%, 55% { opacity: 0.1; }
+        }
+
+        /* Vignette Overlay (Dark edges) */
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, rgba(0,0,0,0) 40%, rgba(0,0,0,0.95) 100%);
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Static Noise */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        /* Page Transition Overlay */
+        #transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        #transition-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .blood-border {
+            border: 1px solid #3f0000;
+            box-shadow: 0 0 15px rgba(138, 3, 3, 0.2);
+            transition: all 0.3s;
+        }
+        .blood-border:hover {
+            border-color: #8a0303;
+            box-shadow: 0 0 25px rgba(138, 3, 3, 0.6);
+            background-color: rgba(20, 0, 0, 0.8);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #3f0000; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--blood-red); }
+
+        .nav-link {
+            position: relative;
+            cursor: pointer;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--blood-red);
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .nav-link.active {
+            color: #ff3333;
+            text-shadow: 0 0 5px red;
         }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden selection:bg-indigo-500 selection:text-white">
+<body class="antialiased">
 
-    <nav class="fixed w-full z-50 transition-all duration-300 backdrop-blur-md bg-slate-900/80 border-b border-slate-800">
+    <div class="vignette"></div>
+    <div class="noise"></div>
+
+    <!-- Transition Overlay -->
+    <div id="transition-overlay">
+        <div class="font-horror text-6xl text-red-700 animate-pulse">CONNECTING...</div>
+    </div>
+
+    <nav class="fixed w-full z-50 bg-black/80 border-b border-red-900/50 backdrop-blur-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex items-center gap-3 cursor-pointer">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-                        <i class="fa-solid fa-network-wired text-white text-xl"></i>
-                    </div>
-                    <span class="font-bold text-2xl tracking-wide text-white">Inter<span class="text-indigo-400">Op</span></span>
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
+                    <i class="fa-solid fa-spider text-red-600 text-2xl flicker"></i>
+                    <span class="font-horror text-2xl text-red-500 tracking-widest text-shadow">DARK<span class="text-white">OP</span></span>
                 </div>
                 <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">ความหมาย</a>
-                        <a href="#benefits" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">ประโยชน์</a>
-                        <a href="#technology" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">เทคโนโลยีหลัก</a>
-                        <button class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all shadow-lg shadow-indigo-500/30">ติดต่อผู้เชี่ยวชาญ</button>
+                    <div class="ml-10 flex items-baseline space-x-8 font-tech text-sm uppercase">
+                        <span onclick="navigate('home')" class="nav-link active text-gray-300 hover:text-red-500 transition-colors" data-target="home">The Nightmare</span>
+                        <span onclick="navigate('about')" class="nav-link text-gray-300 hover:text-red-500 transition-colors" data-target="about">The Curse (About)</span>
+                        <span onclick="navigate('tech')" class="nav-link text-gray-300 hover:text-red-500 transition-colors" data-target="tech">Dark Rituals (Tech)</span>
+                        <span onclick="navigate('resume')" class="nav-link text-gray-300 hover:text-red-500 transition-colors" data-target="resume">The Architect (Resume)</span>
+                        <span onclick="navigate('contact')" class="nav-link text-gray-300 hover:text-red-500 transition-colors" data-target="contact">Summon Us</span>
                     </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-red-600 hover:text-red-400 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <!-- พื้นหลังตกแต่ง -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-600/20 rounded-full blur-[120px] -z-10"></div>
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-600/20 rounded-full blur-[100px] -z-10"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
-                <!-- ข้อความ Hero -->
-                <div class="lg:col-span-6 text-center lg:text-left mb-16 lg:mb-0">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800 border border-slate-700 text-cyan-400 text-sm font-medium mb-6">
-                        <span class="relative flex h-3 w-3">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
-                        </span>
-                        The Future of Systems Integration
-                    </div>
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                        ทลายกำแพงระบบ<br>ด้วย <span class="text-gradient">Software Interoperability</span>
-                    </h1>
-                    <p class="text-lg md:text-xl text-slate-400 mb-8 max-w-2xl mx-auto lg:mx-0">
-                        สร้างสถาปัตยกรรมซอฟต์แวร์ที่เชื่อมต่อ สื่อสาร และแลกเปลี่ยนข้อมูลกันได้อย่างไร้รอยต่อ ไม่ว่าจะเป็นระบบเก่าหรือใหม่ เพื่อปลดล็อกศักยภาพสูงสุดของธุรกิจคุณ
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#about" class="bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-400 hover:to-cyan-400 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2">
-                            ทำความรู้จักเพิ่มเติม <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                        <a href="#technology" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 px-8 py-4 rounded-full font-semibold text-lg transition-all flex items-center justify-center">
-                            ดูเทคโนโลยีที่รองรับ
-                        </a>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-6 relative">
-                    <div class="relative w-full aspect-square max-w-lg mx-auto float-anim">
-                        <!-- โครงสร้างเครือข่ายจำลองแบบ CSS -->
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <!-- วงกลมกลาง (Core System) -->
-                            <div class="w-32 h-32 rounded-3xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-2xl z-20 relative">
-                                <i class="fa-solid fa-server text-4xl text-white"></i>
-                                <!-- วงแหวนกระจายคลื่น -->
-                                <div class="absolute inset-0 rounded-3xl border-2 border-indigo-500 pulse-slow scale-150 opacity-50"></div>
-                            </div>
-
-                            <!-- เส้นเชื่อมต่อและ Node ย่อย -->
-                            <div class="absolute top-10 left-10 w-20 h-20 rounded-2xl glass-card flex items-center justify-center z-10">
-                                <i class="fa-solid fa-database text-2xl text-cyan-400"></i>
-                                <svg class="absolute top-full left-full w-24 h-24 -ml-4 -mt-4 text-slate-700 -z-10" viewBox="0 0 100 100"><path d="M0,0 L100,100" stroke="currentColor" stroke-width="2" stroke-dasharray="5,5"/></svg>
-                            </div>
-                            
-                            <div class="absolute bottom-10 right-10 w-20 h-20 rounded-2xl glass-card flex items-center justify-center z-10">
-                                <i class="fa-brands fa-aws text-3xl text-orange-400"></i>
-                                <svg class="absolute bottom-full right-full w-24 h-24 -mr-4 -mb-4 text-slate-700 -z-10" viewBox="0 0 100 100"><path d="M100,100 L0,0" stroke="currentColor" stroke-width="2" stroke-dasharray="5,5"/></svg>
-                            </div>
-
-                            <div class="absolute top-20 right-5 w-16 h-16 rounded-2xl glass-card flex items-center justify-center z-10">
-                                <i class="fa-solid fa-mobile-screen text-xl text-emerald-400"></i>
-                                <svg class="absolute top-full right-full w-24 h-16 -mr-2 -mt-2 text-slate-700 -z-10" viewBox="0 0 100 50"><path d="M100,0 L0,50" stroke="currentColor" stroke-width="2" stroke-dasharray="5,5"/></svg>
-                            </div>
-
-                            <div class="absolute bottom-20 left-5 w-16 h-16 rounded-2xl glass-card flex items-center justify-center z-10">
-                                <i class="fa-solid fa-cloud text-xl text-blue-400"></i>
-                                <svg class="absolute bottom-full left-full w-24 h-16 -ml-2 -mb-2 text-slate-700 -z-10" viewBox="0 0 100 50"><path d="M0,100 L100,0" stroke="currentColor" stroke-width="2" stroke-dasharray="5,5"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <main id="content-area" class="pt-16 min-h-screen">
+        
+        <!-- ==================== HOME PAGE ==================== -->
+        <section id="page-home" class="page-section min-h-[90vh] flex flex-col items-center justify-center relative px-4">
+            <!-- Background element -->
+            <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+                <i class="fa-solid fa-network-wired text-[20rem] text-red-600"></i>
             </div>
-        </div>
-    </section>
-
-    <section id="about" class="py-20 bg-slate-900 border-y border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">Software Interoperability คืออะไร?</h2>
-                <div class="w-20 h-1 bg-indigo-500 mx-auto rounded-full mb-8"></div>
-                <p class="text-lg text-slate-400 leading-relaxed">
-                    คือ **ความสามารถของระบบคอมพิวเตอร์ หรือซอฟต์แวร์ที่แตกต่างกัน** (อาจต่างภาษาโปรแกรม ต่างแพลตฟอร์ม หรือต่างผู้ผลิต) ในการเชื่อมต่อ สื่อสาร และแลกเปลี่ยนข้อมูลระหว่างกันได้อย่างเข้าใจและทำงานร่วมกันได้อย่างสมบูรณ์ โดยไม่ต้องอาศัยคนเข้ามาจัดการข้อมูลตรงกลาง
+            
+            <div class="z-10 text-center max-w-4xl mx-auto">
+                <p class="font-tech text-red-500 mb-4 tracking-[0.3em] uppercase text-sm border-y border-red-900/50 py-2 inline-block">System Failure Detected</p>
+                <h1 class="font-horror text-6xl md:text-8xl text-white mb-6 glitch" data-text="SOFTWARE INTEROPERABILITY">
+                    <span>SOFTWARE INTEROPERABILITY</span>
+                    SOFTWARE INTEROPERABILITY
+                    <span>SOFTWARE INTEROPERABILITY</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-400 font-tech mb-10 max-w-2xl mx-auto leading-relaxed">
+                    ข้อมูลที่ถูกกักขังในระบบที่ตายแล้ว... <br>
+                    <span class="text-red-500">ปลดปล่อยมัน</span> ด้วยพิธีกรรมเชื่อมต่อซอฟต์แวร์ที่ไร้รอยต่อ
                 </p>
+                
+                <button onclick="navigate('about')" class="blood-border bg-black text-red-500 font-tech px-8 py-4 uppercase tracking-widest hover:text-white transition-all group relative overflow-hidden">
+                    <span class="relative z-10">Enter the Nexus</span>
+                    <div class="absolute inset-0 bg-red-900 w-0 group-hover:w-full transition-all duration-500 z-0"></div>
+                </button>
             </div>
+        </section>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- ระดับการทำงานร่วมกัน -->
-                <div class="glass-card p-8 rounded-2xl">
-                    <div class="w-14 h-14 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-plug text-2xl text-blue-400"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">1. การเชื่อมต่อพื้นฐาน (Foundational)</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        ระบบสามารถส่งข้อมูลผ่านเครือข่ายถึงกันได้ เช่น การส่งไฟล์หากันผ่านโปรโตคอล TCP/IP หรือ HTTP พื้นฐาน
+        <!-- ==================== ABOUT PAGE ==================== -->
+        <section id="page-about" class="page-section hidden min-h-[90vh] py-20 px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="font-horror text-5xl text-red-600 mb-4">The Curse of Isolation</h2>
+                    <div class="w-32 h-[1px] bg-red-800 mx-auto mb-6"></div>
+                    <p class="font-tech text-gray-400 max-w-3xl mx-auto text-lg">
+                        <strong>Software Interoperability</strong> คือมนต์ดำที่ทำให้ซอฟต์แวร์ต่างสายพันธุ์ ต่างภาษา 
+                        สามารถสื่อสารและแลกเปลี่ยนข้อมูลกันได้ หากปราศจากสิ่งนี้ ข้อมูลของคุณจะถูกสาปให้อยู่ใน "Data Silo" ที่เน่าเปื่อย
                     </p>
                 </div>
 
-                <div class="glass-card p-8 rounded-2xl">
-                    <div class="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-code text-2xl text-purple-400"></i>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Pillar 1 -->
+                    <div class="blood-border bg-[#0a0a0a] p-8 text-center group">
+                        <i class="fa-solid fa-link-slash text-5xl text-gray-600 mb-6 group-hover:text-red-500 transition-colors"></i>
+                        <h3 class="font-horror text-2xl text-white mb-4">The Severed Ties</h3>
+                        <p class="font-tech text-sm text-gray-500 text-left">
+                            ระบบเก่า (Legacy Systems) ที่ปฏิเสธการพูดคุยกับโลกภายนอก ทำให้กระบวนการทำงานเกิดคอขวดและต้องใช้แรงงานมนุษย์คีย์ข้อมูลซ้ำซ้อนราวกับตกนรกทั้งเป็น
+                        </p>
                     </div>
-                    <h3 class="text-xl font-bold mb-4">2. ระดับโครงสร้าง (Structural)</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        ระบบสามารถอ่านโครงสร้างข้อมูลของกันและกันได้ เช่น การตกลงใช้ฟอร์แมต JSON หรือ XML ในการรับส่งข้อมูล
-                    </p>
-                </div>
 
-                <div class="glass-card p-8 rounded-2xl">
-                    <div class="w-14 h-14 bg-emerald-500/20 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-brain text-2xl text-emerald-400"></i>
+                    <!-- Pillar 2 -->
+                    <div class="blood-border bg-[#0a0a0a] p-8 text-center group relative overflow-hidden">
+                        <div class="absolute inset-0 bg-red-900/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <i class="fa-solid fa-ghost text-5xl text-gray-600 mb-6 group-hover:text-red-500 transition-colors animate-bounce"></i>
+                        <h3 class="font-horror text-2xl text-white mb-4">Phantom Data</h3>
+                        <p class="font-tech text-sm text-gray-500 text-left relative z-10">
+                            ข้อมูลสูญหาย หรือไม่ซิงค์กันแบบ Real-time นำไปสู่การตัดสินใจที่ผิดพลาด (Phantom Data) Interoperability จะช่วยเรียกวิญญาณข้อมูลให้ถูกต้องตรงกันเสมอ
+                        </p>
                     </div>
-                    <h3 class="text-xl font-bold mb-4">3. ระดับความหมาย (Semantic)</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        ขั้นสูงสุดที่ระบบไม่เพียงแค่อ่านออก แต่ "เข้าใจความหมาย" ของข้อมูลนั้นตรงกัน และนำไปประมวลผลต่อได้อัตโนมัติ
-                    </p>
+
+                    <!-- Pillar 3 -->
+                    <div class="blood-border bg-[#0a0a0a] p-8 text-center group">
+                        <i class="fa-solid fa-infinity text-5xl text-gray-600 mb-6 group-hover:text-red-500 transition-colors"></i>
+                        <h3 class="font-horror text-2xl text-white mb-4">The Blood Pact</h3>
+                        <p class="font-tech text-sm text-gray-500 text-left">
+                            สร้างพันธสัญญา (Protocols & Standards) ให้ระบบต่างๆ เข้าใจโครงสร้างและความหมายของข้อมูล (Semantic) ทำงานร่วมกันได้ชั่วนิรันดร์
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="benefits" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                <div class="max-w-2xl">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4">ทำไมองค์กรถึงต้องการ <br><span class="text-indigo-400">Interoperability?</span></h2>
-                    <p class="text-slate-400">การที่ซอฟต์แวร์คุยกันไม่รู้เรื่อง ก่อให้เกิด Data Silo และคอขวดในการทำงาน นี่คือประโยชน์เมื่อทุกระบบเชื่อมถึงกัน</p>
-                </div>
-            </div>
-
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Benefit 1 -->
-                <div class="bg-slate-800/50 border border-slate-700 hover:border-cyan-500/50 p-6 rounded-2xl transition-all group">
-                    <div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                        <i class="fa-solid fa-bolt text-cyan-400"></i>
-                    </div>
-                    <h4 class="text-lg font-bold mb-3 text-white">เพิ่มประสิทธิภาพ (Efficiency)</h4>
-                    <p class="text-sm text-slate-400">กระบวนการอัตโนมัติทำงานข้ามระบบได้ทันที ลดเวลาการคีย์ข้อมูลซ้ำซ้อนระหว่างโปรแกรม</p>
+        <!-- ==================== TECH PAGE ==================== -->
+        <section id="page-tech" class="page-section hidden min-h-[90vh] py-20 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="font-horror text-5xl text-red-600 mb-4">Dark Rituals (Technologies)</h2>
+                    <p class="font-tech text-gray-400">เครื่องมือและอาคมที่ใช้ในการเชื่อมต่อวิญญาณของซอฟต์แวร์</p>
                 </div>
 
-                <!-- Benefit 2 -->
-                <div class="bg-slate-800/50 border border-slate-700 hover:border-indigo-500/50 p-6 rounded-2xl transition-all group">
-                    <div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                        <i class="fa-solid fa-chart-pie text-indigo-400"></i>
-                    </div>
-                    <h4 class="text-lg font-bold mb-3 text-white">ทำลาย Data Silos</h4>
-                    <p class="text-sm text-slate-400">ข้อมูลไม่ถูกขังอยู่ในระบบใดระบบหนึ่ง ผู้บริหารเห็นภาพรวมของข้อมูล (Single Source of Truth) ได้แม่นยำขึ้น</p>
-                </div>
-
-                <!-- Benefit 3 -->
-                <div class="bg-slate-800/50 border border-slate-700 hover:border-purple-500/50 p-6 rounded-2xl transition-all group">
-                    <div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                        <i class="fa-solid fa-users text-purple-400"></i>
-                    </div>
-                    <h4 class="text-lg font-bold mb-3 text-white">ยกระดับ User Experience</h4>
-                    <p class="text-sm text-slate-400">ผู้ใช้งานไม่ต้องสลับหน้าจอไปมาหลายโปรแกรม ระบบเบื้องหลังจัดการซิงค์ข้อมูลให้แบบ Real-time</p>
-                </div>
-
-                <!-- Benefit 4 -->
-                <div class="bg-slate-800/50 border border-slate-700 hover:border-emerald-500/50 p-6 rounded-2xl transition-all group">
-                    <div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                        <i class="fa-solid fa-coins text-emerald-400"></i>
-                    </div>
-                    <h4 class="text-lg font-bold mb-3 text-white">ประหยัดต้นทุน</h4>
-                    <p class="text-sm text-slate-400">ลดความผิดพลาดจาก Human Error และประหยัดต้นทุนในการบำรุงรักษาระบบที่ทำงานทับซ้อนกัน</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="technology" class="py-20 bg-slate-900 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-4">เทคโนโลยีเบื้องหลังการเชื่อมต่อ</h2>
-                <p class="text-slate-400">เครื่องมือและมาตรฐานที่ทำให้ Software Interoperability เกิดขึ้นจริง</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-10 items-center">
-                <div class="space-y-6">
-                    <!-- Tech Item -->
-                    <div class="flex gap-4 p-5 rounded-xl bg-slate-800/50 border border-slate-700 hover:bg-slate-800 transition-colors">
-                        <div class="flex-shrink-0 w-12 h-12 bg-indigo-500/20 text-indigo-400 rounded-lg flex items-center justify-center text-xl font-bold">
-                            API
+                <div class="flex flex-col lg:flex-row gap-12 items-center">
+                    <!-- Left: Tech List -->
+                    <div class="w-full lg:w-1/2 space-y-6">
+                        <div class="blood-border p-6 bg-black flex items-start gap-4">
+                            <div class="text-red-600 mt-1"><i class="fa-solid fa-skull text-2xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-xl text-white font-tech mb-2">API (The Summoning Circle)</h4>
+                                <p class="text-gray-400 text-sm">Application Programming Interface ช่องทางลับที่ยอมให้ระบบอื่นอัญเชิญข้อมูลไปใช้ได้อย่างปลอดภัย (REST, GraphQL)</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="text-lg font-bold text-white mb-1">Application Programming Interface (REST, GraphQL)</h4>
-                            <p class="text-sm text-slate-400">ช่องทางหลักที่อนุญาตให้ซอฟต์แวร์ต่างชนิดกันร้องขอและส่งมอบข้อมูลให้กันอย่างปลอดภัย</p>
+                        
+                        <div class="blood-border p-6 bg-black flex items-start gap-4">
+                            <div class="text-red-600 mt-1"><i class="fa-solid fa-scroll text-2xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-xl text-white font-tech mb-2">JSON / XML (The Cursed Scripts)</h4>
+                                <p class="text-gray-400 text-sm">ภาษามาตรฐานที่เป็นตัวกลางในการจารึกข้อมูล เพื่อให้ทุกระบบตีความหมายได้ตรงกัน ไม่ผิดเพี้ยน</p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- Tech Item -->
-                    <div class="flex gap-4 p-5 rounded-xl bg-slate-800/50 border border-slate-700 hover:bg-slate-800 transition-colors">
-                        <div class="flex-shrink-0 w-12 h-12 bg-cyan-500/20 text-cyan-400 rounded-lg flex items-center justify-center text-xl font-bold">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold text-white mb-1">มาตรฐานข้อมูล (JSON, XML)</h4>
-                            <p class="text-sm text-slate-400">ภาษากลางที่จัดรูปแบบข้อมูลให้เป็นระเบียบ ทำให้ทุกระบบที่รับไปสามารถแปลผลได้ตรงกัน</p>
+
+                        <div class="blood-border p-6 bg-black flex items-start gap-4">
+                            <div class="text-red-600 mt-1"><i class="fa-solid fa-bell text-2xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-xl text-white font-tech mb-2">Webhooks (The Haunting Whisper)</h4>
+                                <p class="text-gray-400 text-sm">เวทมนตร์ที่คอยกระซิบเตือนระบบอื่นทันทีเมื่อมีเหตุการณ์บางอย่างเกิดขึ้น โดยไม่ต้องรอให้ถาม</p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Tech Item -->
-                    <div class="flex gap-4 p-5 rounded-xl bg-slate-800/50 border border-slate-700 hover:bg-slate-800 transition-colors">
-                        <div class="flex-shrink-0 w-12 h-12 bg-purple-500/20 text-purple-400 rounded-lg flex items-center justify-center text-xl font-bold">
-                            <i class="fa-solid fa-satellite-dish"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold text-white mb-1">Webhooks & Event-driven</h4>
-                            <p class="text-sm text-slate-400">กลไกที่แจ้งเตือนระบบอื่นทันทีเมื่อมีเหตุการณ์บางอย่างเกิดขึ้น (Real-time updates) โดยไม่ต้องคอยถามข้อมูล</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Code Graphic -->
-                <div class="relative rounded-2xl overflow-hidden bg-[#1e1e1e] border border-slate-700 shadow-2xl p-4">
-                    <div class="flex gap-2 mb-4">
-                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                    </div>
-                    <pre class="text-sm font-mono text-gray-300 overflow-x-auto">
-<span class="text-purple-400">POST</span> <span class="text-green-400">/api/v1/sync/customer</span> HTTP/1.1
-Host: api.integrated-system.com
-Content-Type: application/json
+                    <!-- Right: Code Terminal -->
+                    <div class="w-full lg:w-1/2">
+                        <div class="rounded-md border border-red-900 bg-[#050000] shadow-[0_0_30px_rgba(138,3,3,0.15)] overflow-hidden">
+                            <div class="bg-[#1a0000] border-b border-red-900 p-3 flex gap-2 items-center">
+                                <div class="w-3 h-3 rounded-full bg-red-600"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-600"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-600"></div>
+                                <span class="ml-4 font-tech text-xs text-red-500/70">/var/log/soul_transfer.log</span>
+                            </div>
+                            <div class="p-4 overflow-x-auto font-tech text-sm leading-relaxed">
+<pre class="text-gray-400">
+<span class="text-red-500 font-bold">POST</span> /api/v1/resurrect/data HTTP/1.1
+Host: <span class="text-gray-300">dark-nexus.local</span>
+Content-Type: <span class="text-gray-300">application/json</span>
+Authorization: <span class="text-gray-300">Bearer blood_pact_token_666</span>
 
 {
-  <span class="text-cyan-300">"source_system"</span>: <span class="text-orange-300">"CRM_Salesforce"</span>,
-  <span class="text-cyan-300">"target_system"</span>: <span class="text-orange-300">"ERP_SAP"</span>,
-  <span class="text-cyan-300">"action"</span>: <span class="text-orange-300">"CREATE"</span>,
-  <span class="text-cyan-300">"data"</span>: {
-    <span class="text-cyan-300">"id"</span>: <span class="text-orange-300">"CUST-8849"</span>,
-    <span class="text-cyan-300">"name"</span>: <span class="text-orange-300">"TechCorp Thailand"</span>,
-    <span class="text-cyan-300">"status"</span>: <span class="text-orange-300">"Active"</span>
+  <span class="text-red-400">"source_entity"</span>: <span class="text-gray-200">"Legacy_Oracle_DB"</span>,
+  <span class="text-red-400">"target_vessel"</span>: <span class="text-gray-200">"Cloud_CRM"</span>,
+  <span class="text-red-400">"payload"</span>: {
+    <span class="text-red-400">"soul_id"</span>: <span class="text-green-500">1984</span>,
+    <span class="text-red-400">"status"</span>: <span class="text-gray-200">"AWAKENED"</span>
   }
 }
 
-<span class="text-slate-500">// Response 200 OK</span>
+<span class="text-green-600 animate-pulse">// RESPONSE [200 OK] </span>
 {
-  <span class="text-cyan-300">"status"</span>: <span class="text-orange-300">"success"</span>,
-  <span class="text-cyan-300">"message"</span>: <span class="text-orange-300">"Data synchronized across systems"</span>
+  <span class="text-red-400">"message"</span>: <span class="text-gray-200">"Integration Successful. They are one now."</span>
 }
-                    </pre>
+</pre>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="bg-slate-950 py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="flex justify-center items-center gap-3 mb-6">
-                <i class="fa-solid fa-network-wired text-indigo-500 text-2xl"></i>
-                <span class="font-bold text-2xl tracking-wide text-white">Inter<span class="text-indigo-400">Op</span></span>
+        <!-- ==================== RESUME PAGE ==================== -->
+        <section id="page-resume" class="page-section hidden min-h-[90vh] py-20 px-4">
+            <div class="max-w-4xl mx-auto blood-border bg-[#050000] p-8 md:p-12 relative overflow-hidden">
+                <!-- Background decoration -->
+                <i class="fa-solid fa-fingerprint absolute -right-10 -bottom-10 text-[20rem] text-red-900/10 pointer-events-none"></i>
+
+                <div class="border-b border-red-900/50 pb-8 mb-8 flex flex-col md:flex-row items-center md:items-center gap-6 md:gap-8">
+                    
+                    <!-- Profile Image Slot -->
+                    <div class="relative group shrink-0 w-36 h-36 md:w-40 md:h-40">
+                        <!-- Decorative glow -->
+                        <div class="absolute -inset-1 bg-red-900/30 blur-sm group-hover:bg-red-700/50 transition-all duration-500 rounded-sm"></div>
+                        
+                        <!-- ========================================== -->
+                        <!-- ⚠️ ใส่ URL รูปภาพของคุณที่บรรทัดด้านล่างนี้ ⚠️ -->
+                        <!-- ตรงแอตทริบิวต์ src="..." เปลี่ยนข้อความข้างในเครื่องหมายคำพูดเป็นลิงก์รูปของคุณ -->
+                        <!-- ========================================== -->
+                        <img src="https://cdn.phototourl.com/free/2026-09-23-f19e6a82-bdb9-4a6d-9a0e-055c022e3223.jpg" 
+                             alt="Phutawan Profile" 
+                             class="w-full h-full object-cover blood-border grayscale group-hover:grayscale-0 transition-all duration-500 relative z-10">
+                             
+                        <!-- CRT Scanline Effect Overlay -->
+                        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0)_50%,rgba(0,0,0,0.4)_50%,rgba(0,0,0,0.4))] bg-[length:100%_4px] z-20 pointer-events-none opacity-70 group-hover:opacity-30 transition-opacity"></div>
+                    </div>
+
+                    <!-- Identity Details -->
+                    <div class="flex-1 flex flex-col md:flex-row items-center md:items-start justify-between gap-6 w-full">
+                        <div class="text-center md:text-left">
+                            <p class="font-tech text-red-500 mb-2 tracking-widest text-sm">> SYSTEM.IDENTITY.REVEAL()</p>
+                            <h2 class="font-horror text-4xl md:text-5xl text-white mb-2 glitch" data-text="Phutawan KULCHATCHAI">Phutawan KULCHATCHAI</h2>
+                            <p class="font-tech text-gray-400 text-lg">Lead Systems Necromancer / Software Interoperability Architect</p>
+                        </div>
+                        <div class="text-center md:text-right font-tech text-sm text-gray-500 space-y-2">
+                            <p><i class="fa-solid fa-location-dot text-red-700 w-5"></i> Laem Chabang, Chon Buri, TH</p>
+                            <p><i class="fa-solid fa-envelope text-red-700 w-5"></i> soul.bind@dark-nexus.net</p>
+                            <p><i class="fa-solid fa-terminal text-red-700 w-5"></i> github.com/phutawan-void</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 relative z-10">
+                    <!-- Left Column -->
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="font-horror text-2xl text-red-600 mb-4 border-b border-red-900/30 inline-block pb-1">The Lore (Profile)</h3>
+                            <p class="font-tech text-gray-400 text-sm leading-relaxed">
+                                ผู้หลงใหลในศาสตร์มืดแห่งการเชื่อมต่อระบบ ชำนาญการชุบชีวิตข้อมูลจาก Data Silo ที่ตายแล้วให้กลับมามีชีวิต สร้างสะพานวิญญาณระหว่างซอฟต์แวร์ต่างเผ่าพันธุ์ (Interoperability) ให้สื่อสารกันได้อย่างไร้รอยต่อ เพื่อเป้าหมายในการปลดปล่อยข้อมูลให้เป็นอิสระ
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-horror text-2xl text-red-600 mb-4 border-b border-red-900/30 inline-block pb-1">Dark Arts (Skills)</h3>
+                            <ul class="font-tech text-gray-400 text-sm space-y-3">
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-skull text-red-800"></i> API Summoning (REST, GraphQL)</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-scroll text-red-800"></i> Data Blood-Binding (JSON, XML)</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-network-wired text-red-800"></i> Legacy System Resurrection</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-ghost text-red-800"></i> Phantom Data Sync (Webhooks)</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-code text-red-800"></i> Full-Stack Necromancy (JS, Python)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="font-horror text-2xl text-red-600 mb-4 border-b border-red-900/30 inline-block pb-1">Past Incarnations (Experience)</h3>
+                            <div class="space-y-6">
+                                <div class="relative pl-6 border-l border-red-900/50">
+                                    <div class="absolute w-3 h-3 bg-red-600 rounded-full -left-[6.5px] top-1"></div>
+                                    <h4 class="font-bold text-white font-tech">Senior Interoperability Engineer</h4>
+                                    <p class="text-red-500 font-tech text-xs mb-2">The Void Corporation | 2024 - Present</p>
+                                    <p class="font-tech text-gray-400 text-sm">อัญเชิญข้อมูลข้ามมิติระหว่างระบบ ERP โบราณและ Cloud CRM สมัยใหม่ ลดอัตราข้อมูลสูญหาย (Data Decay) ได้ 99.9%</p>
+                                </div>
+                                <div class="relative pl-6 border-l border-red-900/50">
+                                    <div class="absolute w-3 h-3 bg-red-900 rounded-full -left-[6.5px] top-1"></div>
+                                    <h4 class="font-bold text-gray-300 font-tech">Systems Necromancer</h4>
+                                    <p class="text-red-800 font-tech text-xs mb-2">Shadow Tech Ltd. | 2021 - 2023</p>
+                                    <p class="font-tech text-gray-500 text-sm">สร้าง Blood Pact (API Gateway) ควบคุมทราฟฟิกวิญญาณข้อมูลกว่า 10 ล้านรีเควสต่อวันให้ไหลเวียนอย่างปลอดภัย</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="font-horror text-2xl text-red-600 mb-4 border-b border-red-900/30 inline-block pb-1">Grimoire (Education)</h3>
+                            <div class="relative pl-6 border-l border-red-900/50">
+                                <div class="absolute w-3 h-3 bg-red-700 rounded-full -left-[6.5px] top-1"></div>
+                                <h4 class="font-bold text-white font-tech">B.Sc. Computer Engineering</h4>
+                                <p class="text-red-500 font-tech text-xs mb-2">University of Technology</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p class="text-slate-500 mb-6 max-w-md mx-auto">
-                เชื่อมต่อระบบ สร้างระบบนิเวศน์ซอฟต์แวร์ที่แข็งแกร่ง เพื่อการเติบโตอย่างยั่งยืนของธุรกิจคุณ
+        </section>
+
+        <!-- ==================== CONTACT PAGE ==================== -->
+        <section id="page-contact" class="page-section hidden min-h-[90vh] py-20 px-4 flex flex-col justify-center">
+            <div class="max-w-md mx-auto w-full relative">
+                <!-- Pentagram background hint -->
+                <i class="fa-solid fa-star-of-david absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30rem] text-red-900/10 pointer-events-none -z-10 animate-spin-slow" style="animation: spin 30s linear infinite;"></i>
+                
+                <h2 class="font-horror text-5xl text-center text-red-600 mb-2">Summon the Architects</h2>
+                <p class="font-tech text-center text-gray-500 mb-8 text-sm">ทิ้งข้อความไว้ในความมืด แล้วเราจะติดต่อกลับไป...</p>
+
+                <form onsubmit="submitForm(event)" class="blood-border bg-black/80 backdrop-blur p-8 space-y-6">
+                    <div>
+                        <label class="block font-tech text-red-500 text-sm mb-2">Your Name (นาม)</label>
+                        <input type="text" required class="w-full bg-[#111] border border-red-900/50 focus:border-red-500 focus:outline-none text-white p-3 font-tech">
+                    </div>
+                    <div>
+                        <label class="block font-tech text-red-500 text-sm mb-2">System Name (ระบบที่ต้องการเชื่อม)</label>
+                        <input type="text" required class="w-full bg-[#111] border border-red-900/50 focus:border-red-500 focus:outline-none text-white p-3 font-tech">
+                    </div>
+                    <div>
+                        <label class="block font-tech text-red-500 text-sm mb-2">Your Nightmare (ปัญหาที่พบ)</label>
+                        <textarea rows="4" required class="w-full bg-[#111] border border-red-900/50 focus:border-red-500 focus:outline-none text-white p-3 font-tech resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-red-900 hover:bg-red-700 text-black hover:text-white font-horror text-2xl py-3 transition-colors border border-red-600">
+                        Initiate Protocol
+                    </button>
+                    <div id="form-msg" class="hidden text-center font-tech text-green-500 text-sm animate-pulse">
+                        Contract accepted. We are watching you.
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-red-900/50 bg-black py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="font-tech text-gray-600 text-xs">
+                &copy; 2024 The Dark Nexus. All souls reserved. <br>
+                <span class="text-red-900">Software Interoperability Concept Design</span>
             </p>
-            <div class="flex justify-center gap-6 mb-8">
-                <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
-                <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
-                <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fa-brands fa-twitter text-xl"></i></a>
-            </div>
-            <div class="text-sm text-slate-600">
-                &copy; 2024 InterOp Integration Architecture. All rights reserved. Designed for Concept Demonstration.
-            </div>
         </div>
     </footer>
 
-    <!-- Script สำหรับ Smooth Scrolling -->
     <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+        // --- Router Logic (Simulating Multiple Pages) ---
+        function navigate(pageId) {
+            // Update Navigation active state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('data-target') === pageId) {
+                    link.classList.add('active');
+                }
             });
-        });
+
+            // Trigger Transition Effect
+            const overlay = document.getElementById('transition-overlay');
+            overlay.classList.add('active');
+
+            // Wait for black screen, then swap content
+            setTimeout(() => {
+                // Hide all pages
+                document.querySelectorAll('.page-section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                
+                // Show target page
+                const targetPage = document.getElementById('page-' + pageId);
+                if(targetPage) {
+                    targetPage.classList.remove('hidden');
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                }
+
+                // Remove transition effect
+                setTimeout(() => {
+                    overlay.classList.remove('active');
+                }, 300); // fade out duration
+
+            }, 500); // Time overlay stays black
+        }
+
+        // --- Fake Form Submission ---
+        function submitForm(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const msg = document.getElementById('form-msg');
+            
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing Blood Pact...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.style.display = 'none';
+                msg.classList.remove('hidden');
+            }, 2000);
+        }
+
+        // --- Ambient Horror Logic (Optional Random Glitches) ---
+        setInterval(() => {
+            const h1 = document.querySelector('.glitch');
+            if(h1 && Math.random() > 0.8) {
+                h1.style.animationDuration = (Math.random() * 200 + 100) + 'ms';
+                setTimeout(() => {
+                    h1.style.animationDuration = '500ms';
+                }, 500);
+            }
+        }, 2000);
     </script>
 </body>
 </html>
